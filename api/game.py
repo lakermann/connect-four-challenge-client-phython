@@ -1,4 +1,5 @@
 import time
+import traceback
 
 
 class GameRunner:
@@ -15,6 +16,8 @@ class GameRunner:
 
         win = 0
         draw = 0
+
+        start_time = time.time()
 
         try:
 
@@ -38,8 +41,6 @@ class GameRunner:
 
                 while self._is_game_finished(game_state) is False:
 
-                    game_state = self._client.game_state(game_id=game_id)
-
                     board = Board(board=game_state['board'], disc_color=disc_color, player_id=self._player_id)
 
                     if self._is_my_turn(game_state=game_state):
@@ -48,26 +49,30 @@ class GameRunner:
                     else:
                         time.sleep(self.POLLING_IN_SEC)
 
+                    game_state = self._client.game_state(game_id=game_id)
+
 
                 # game finished
                 board = Board(board=game_state['board'], disc_color=disc_color, player_id=self._player_id)
 
-                winner = game_state['winner']
+                if 'winner' in game_state:
+                    winner = game_state['winner']
 
-                if winner is None:
+                    if winner == self._player_id:
+                        self._strategy.win(board)
+                        win += 1
+                    else:
+                        self._strategy.loose(board)
+                else:
                     self._strategy.draw(board)
                     draw += 1
 
-                if winner == self._player_id:
-                    self._strategy.win(board)
-                    win += 1
-                else:
-                    self._strategy.loose(board)
+            elapsed_time = time.time() - start_time
+            print(' player %s, games %i, win %i, draw %i, elapsed time %i seconds' % (self._player_id, self._number_of_games, win, draw, elapsed_time))
 
-            print('games %i, win %i, draw %i, player %s' % (self._number_of_games, win, draw, self._player_id))
-
-        except Exception as e:
-            print(e)
+        except Exception as err:
+            print('exception:', err)
+            print(traceback.format_exc())
 
     def _is_game_finished(self, game_state):
         return game_state['finished'] is True
