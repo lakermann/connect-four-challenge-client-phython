@@ -1,13 +1,15 @@
 import time
+import logging
 from concurrent.futures import ThreadPoolExecutor
 
 from api import GameRunner, ConnectFourClient, RandomPlayerStrategy
 
-NUMBER_OF_GAMES = 1000
+NUMBER_OF_GAMES = 1_000
 SERVER_URL = "http://localhost:8080"
 
 
 def main():
+    logging.getLogger().setLevel(logging.INFO)
     executor = ThreadPoolExecutor(max_workers=2)
 
     client = ConnectFourClient(SERVER_URL)
@@ -21,6 +23,8 @@ def main():
 
     while not future1.done() and not future2.done():
         time.sleep(1)
+
+    logging.info('Done!')
 
 
 if __name__ == '__main__':

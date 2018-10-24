@@ -1,9 +1,9 @@
 import time
 import traceback
+import logging
 
 
 class GameRunner:
-
     POLLING_IN_SEC = 0
 
     def __init__(self, client, player_id, strategy, number_of_games):
@@ -51,7 +51,6 @@ class GameRunner:
 
                     game_state = self._client.game_state(game_id=game_id)
 
-
                 # game finished
                 board = Board(board=game_state['board'], disc_color=disc_color, player_id=self._player_id)
 
@@ -68,11 +67,12 @@ class GameRunner:
                     draw += 1
 
             elapsed_time = time.time() - start_time
-            print(' player %s, games %i, win %i, draw %i, elapsed time %i seconds' % (self._player_id, self._number_of_games, win, draw, elapsed_time))
+            logging.info('player %s, games %i, win %i, draw %i, elapsed time %i seconds', self._player_id,
+                         self._number_of_games, win, draw, elapsed_time)
 
         except Exception as err:
-            print('exception:', err)
-            print(traceback.format_exc())
+            logging.error('exception: %s', err)
+            logging.error(traceback.format_exc())
 
     def _is_game_finished(self, game_state):
         return game_state['finished'] is True
@@ -97,6 +97,9 @@ class Board:
         self.board = board
         self.disc_color = disc_color
         self.player_id = player_id
+
+    def shape(self):
+        return (self.rows(), self.columns())
 
     def columns(self):
         if len(self.board) == 0:
@@ -132,10 +135,17 @@ class Board:
 
         return free_space
 
+    def free_space(self):
+        free_space = 0
+        for n in range(self.rows()):
+            free_space += self.free_space_row(n)
+
+        return free_space
+
     def get_row(self, n):
         return self.board[n]
 
-    def possible_columns(self):
+    def possible_moves(self):
         c = self.columns()
         out = []
         for i in range(c):
@@ -151,7 +161,7 @@ class Board:
         for i in items:
 
             if i == self.BOARD_EMPTY:
-                out.append(' ')
+                out.append('E')
             elif i == self.BOARD_RED:
                 out.append('R')
             else:
@@ -161,8 +171,13 @@ class Board:
     def __str__(self):
         board = self.state()
         c = self.columns()
-        out = ' | 0 | 1 | 2 | 3 | 4 | 5 | 6 |\n'
-        out += ' -----------------------------\n'
+        out = ' | ' + ' | '.join([str(x) for x in range(0, c)]) + ' |\n'
+
+        out += ' '
+        for i in range(0, c):
+            out += '----'
+        out += '-\n'
+
         for i in range(len(board)):
             if i == 0:
                 out += ' | ' + board[i]

@@ -13,10 +13,12 @@ Clone this repository and start the [run_game.py](run_game.py) script:
 
 ``` python
 
-NUMBER_OF_GAMES = 1000
+NUMBER_OF_GAMES = 1_000
 SERVER_URL = "http://localhost:8080"
 
+
 def main():
+    logging.getLogger().setLevel(logging.INFO)
     executor = ThreadPoolExecutor(max_workers=2)
 
     client = ConnectFourClient(SERVER_URL)
@@ -30,6 +32,9 @@ def main():
 
     while not future1.done() and not future2.done():
         time.sleep(1)
+
+    logging.info('Done!')
+
 
 if __name__ == '__main__':
     main()
@@ -57,8 +62,7 @@ class GameStrategy:
         pass
 
 
-class RandomPlayerStrategy(GameStrategy):
+class MyStrategy(GameStrategy):
     def drop_disc(self, board):
-        p = board.possible_columns()
-        return random.choice(p)
+        return random.choice([0,1,2,3,4,5,6])
 ```

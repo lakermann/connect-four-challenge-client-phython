@@ -17,7 +17,7 @@ class GameStrategy:
 
 class RandomPlayerStrategy(GameStrategy):
     def drop_disc(self, board):
-        p = board.possible_columns()
+        p = board.possible_moves()
         return random.choice(p)
 
     '''
