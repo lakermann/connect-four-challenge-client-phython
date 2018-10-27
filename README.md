@@ -1,4 +1,4 @@
-# Connect Four Challenge Python Client
+# Connect Four Challenge Python Client ![Build Status](https://travis-ci.org/lakermann/connect-four-challenge-client-python.svg)
 This is a Python client for the [connect four challenge server](https://github.com/lakermann/connect-four-challenge-server).
 This client allows you to easily develop a bot for the connect four challenge.
 
