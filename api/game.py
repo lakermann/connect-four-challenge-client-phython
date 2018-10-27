@@ -75,14 +75,24 @@ class GameRunner:
             logging.error(traceback.format_exc())
 
     def _is_game_finished(self, game_state):
-        return game_state['finished'] is True
+
+        if 'finished' in game_state:
+            return game_state['finished'] is True
+        else:
+            return False
 
     def _get_my_disc_color(self, game_state):
+
+        if 'players' not in game_state:
+            return None
+
         players = game_state['players']
 
         for p in players:
             if p['playerId'] == self._player_id:
                 return p['disc']
+
+        return None
 
     def _is_my_turn(self, game_state):
         return game_state['currentPlayerId'] == self._player_id
