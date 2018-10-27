@@ -2,8 +2,6 @@ from api import GameRunner
 from unittest.mock import MagicMock
 
 
-
-
 def test_helper_is_finished():
 
     g = GameRunner(client=None, player_id='foo', strategy=None, number_of_games=0)
