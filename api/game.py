@@ -88,6 +88,9 @@ class GameRunner:
 
         players = game_state['players']
 
+        if players is None:
+            return None
+
         for p in players:
             if p['playerId'] == self._player_id:
                 return p['disc']
@@ -95,6 +98,10 @@ class GameRunner:
         return None
 
     def _is_my_turn(self, game_state):
+
+        if game_state is None or 'currentPlayerId' not in game_state:
+            return None
+
         return game_state['currentPlayerId'] == self._player_id
 
 
