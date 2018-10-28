@@ -76,10 +76,10 @@ class GameRunner:
 
     def _is_game_finished(self, game_state):
 
-        if 'finished' in game_state:
+        if 'finished' in game_state and game_state['finished'] is not None:
             return game_state['finished'] is True
         else:
-            return False
+            return None
 
     def _get_my_disc_color(self, game_state):
 

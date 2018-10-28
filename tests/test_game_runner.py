@@ -1,5 +1,4 @@
 from api import GameRunner
-from unittest.mock import MagicMock
 
 
 def test_helper_is_finished():
@@ -8,15 +7,15 @@ def test_helper_is_finished():
 
     game_state = {}
 
-    assert g._is_game_finished(game_state) is False
+    assert g._is_game_finished(game_state) is None
 
     game_state = {'other': None}
 
-    assert g._is_game_finished(game_state) is False
+    assert g._is_game_finished(game_state) is None
 
     game_state = {'finished': None}
 
-    assert g._is_game_finished(game_state) is False
+    assert g._is_game_finished(game_state) is None
 
     game_state = {'finished': False}
 
