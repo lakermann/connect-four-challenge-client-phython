@@ -55,7 +55,7 @@ class GameStrategy:
     def win(self, board):
         pass
 
-    def loose(self, board):
+    def lose(self, board):
         pass
 
     def draw(self, board):

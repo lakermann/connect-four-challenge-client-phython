@@ -61,7 +61,7 @@ class GameRunner:
                         self._strategy.win(board)
                         win += 1
                     else:
-                        self._strategy.loose(board)
+                        self._strategy.lose(board)
                 else:
                     self._strategy.draw(board)
                     draw += 1

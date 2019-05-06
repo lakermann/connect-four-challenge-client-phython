@@ -8,7 +8,7 @@ class GameStrategy:
     def win(self, board):
         pass
 
-    def loose(self, board):
+    def lose(self, board):
         pass
 
     def draw(self, board):
@@ -25,8 +25,8 @@ class RandomPlayerStrategy(GameStrategy):
         print('win -> %s (%s)' % (board.disc_color, board.player_id))
         print(board)
 
-    def loose(self, board):
-        print('loose -> %s (%s)' % (board.disc_color, board.player_id))
+    def lose(self, board):
+        print('lose -> %s (%s)' % (board.disc_color, board.player_id))
         print(board)
 
     def draw(self, board):
