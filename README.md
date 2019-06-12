@@ -1,11 +1,13 @@
-# Connect Four Challenge Python Client ![Build Status](https://travis-ci.org/lakermann/connect-four-challenge-client-python.svg)
+# Connect Four Challenge Python Client [![Build Status](https://travis-ci.org/lakermann/connect-four-challenge-client-python.svg?branch=master)](https://travis-ci.org/lakermann/connect-four-challenge-client-python)
+
+_by [Matthias Rüedlinger](https://github.com/rueedlinger), October 2018_
+
 This is a Python client for the [connect four challenge server](https://github.com/lakermann/connect-four-challenge-server).
 This client allows you to easily develop a bot for the connect four challenge.
 
 To run the client you need Python 3.x and the library [requests](http://docs.python-requests.org/).
 
 > pip install requests
-
 
 ## Getting started
 
