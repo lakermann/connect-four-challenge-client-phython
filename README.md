@@ -1,4 +1,4 @@
-# Connect Four Challenge Python Client [![Build Status](https://travis-ci.org/lakermann/connect-four-challenge-client-python.svg?branch=master)](https://travis-ci.org/lakermann/connect-four-challenge-client-python)
+# Connect Four Challenge Python Client [![Build](https://github.com/lakermann/connect-four-challenge-client-python/actions/workflows/build.yml/badge.svg)](https://github.com/lakermann/connect-four-challenge-client-python/actions/workflows/build.yml)
 
 _by [Matthias Rüedlinger](https://github.com/rueedlinger), October 2018_
 
